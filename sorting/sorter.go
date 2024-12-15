@@ -14,6 +14,8 @@ func (s *Sorter) Sort(coll []int) []int {
 	switch s.SortType {
 	case "bubble":
 		return bubbleSort(coll)
+	case "quicksort":
+		return quickSort(coll, 0, len(coll)-1)
 	default:
 		return coll
 	}
@@ -37,15 +39,26 @@ func bubbleSort(coll []int) []int {
 	return coll
 }
 
-// func sorted(coll []int) bool {
-// 	sorted := false
-// 	for i := 1; i < len(coll); i++ {
-// 		if coll[i-1] < coll[i] {
-// 			sorted = true
-// 		} else {
-// 			sorted = false
-// 			break
-// 		}
-// 	}
-// 	return sorted
-// }
+func quickSort(coll []int, lo int, hi int) []int {
+	if lo >= hi || lo < 0 {
+		return coll
+	}
+	pivot := partition(coll, lo, hi)
+	quickSort(coll, lo, pivot-1)
+	quickSort(coll, pivot+1, hi)
+	return coll
+}
+
+func partition(coll []int, lo int, hi int) int {
+	pivot := coll[hi]
+	idx := lo
+
+	for j := lo; j < hi-1; j++ {
+		if coll[j] <= pivot {
+			coll[idx], coll[j] = coll[j], coll[idx]
+			idx += 1
+		}
+	}
+	coll[idx], coll[hi] = coll[hi], coll[idx]
+	return idx
+}
