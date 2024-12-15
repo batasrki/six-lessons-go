@@ -15,7 +15,7 @@ func (s *Sorter) Sort(coll []int) []int {
 	case "bubble":
 		return bubbleSort(coll)
 	case "quicksort":
-		return quickSort(coll, 0, len(coll)-1)
+		return quickSort(coll)
 	default:
 		return coll
 	}
@@ -39,26 +39,29 @@ func bubbleSort(coll []int) []int {
 	return coll
 }
 
-func quickSort(coll []int, lo int, hi int) []int {
-	if lo >= hi || lo < 0 {
+func quickSort(coll []int) []int {
+	if len(coll) < 2 {
 		return coll
 	}
-	pivot := partition(coll, lo, hi)
-	quickSort(coll, lo, pivot-1)
-	quickSort(coll, pivot+1, hi)
+	pivot := partition(coll)
+	quickSort(coll[0:pivot])
+	quickSort(coll[pivot+1:])
 	return coll
 }
 
-func partition(coll []int, lo int, hi int) int {
+func partition(coll []int) int {
+	lo := 0
+	hi := len(coll) - 1
 	pivot := coll[hi]
-	idx := lo
+	idx := lo - 1
 
-	for j := lo; j < hi-1; j++ {
+	for j := lo; j < hi; j++ {
 		if coll[j] <= pivot {
-			coll[idx], coll[j] = coll[j], coll[idx]
 			idx += 1
+			coll[idx], coll[j] = coll[j], coll[idx]
 		}
 	}
+	idx += 1
 	coll[idx], coll[hi] = coll[hi], coll[idx]
 	return idx
 }
