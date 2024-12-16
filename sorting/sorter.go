@@ -2,12 +2,23 @@ package sorting
 
 type Sorter struct {
 	SortType string
+	MaxRange int
 }
 
-func NewSorter(sortType string) *Sorter {
-	return &Sorter{
+type Customer struct {
+	ID           string
+	NumPurchases int
+}
+
+func NewSorter(sortType string, maxRange ...int) *Sorter {
+	s := &Sorter{
 		SortType: sortType,
 	}
+
+	for i := range maxRange {
+		s.MaxRange = maxRange[i]
+	}
+	return s
 }
 
 func (s *Sorter) Sort(coll []int) []int {
@@ -64,4 +75,29 @@ func partition(coll []int) int {
 	idx += 1
 	coll[idx], coll[hi] = coll[hi], coll[idx]
 	return idx
+}
+
+func (s *Sorter) CountingSort(coll []Customer, maxRange int) []Customer {
+	counts := make([]int, maxRange+1)
+	output := make([]Customer, maxRange+1)
+
+	// determine how many numbers repeat
+	for i := range coll {
+		counts[coll[i].NumPurchases] += 1
+	}
+
+	// ensure each slot has the number of elements less than or equal to its value
+	for i := range counts {
+		if i > 0 {
+			counts[i] += counts[i-1]
+		}
+	}
+
+	// add to the output array in sorted order
+	for i := len(coll) - 1; i >= 0; i-- {
+		output[counts[coll[i].NumPurchases]] = coll[i]
+		counts[coll[i].NumPurchases] -= 1
+	}
+
+	return output[1:]
 }
