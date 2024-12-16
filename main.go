@@ -9,12 +9,24 @@ import (
 )
 
 func main() {
+	// bubble sort
 	bs := s.NewSorter("bubble")
 	exampleSlice := makeRandomSlice(30000, 100000000)
 
-	fmt.Printf("Made an array of %d items\n", len(exampleSlice))
+	fmt.Printf("Made an array of %d items for bubble sort\n", len(exampleSlice))
 	startTime := time.Now()
 	bs.Sort(exampleSlice)
+
+	fmt.Println("Time it took to sort the collection: ", time.Since(startTime))
+	printSlice(exampleSlice, 40)
+
+	// quick sort
+	qs := s.NewSorter("quicksort")
+	exampleSlice = makeRandomSlice(30000, 100000000)
+
+	fmt.Printf("\nMade an array of %d items for quicksort\n", len(exampleSlice))
+	startTime = time.Now()
+	qs.Sort(exampleSlice)
 
 	fmt.Println("Time it took to sort the collection: ", time.Since(startTime))
 	printSlice(exampleSlice, 40)

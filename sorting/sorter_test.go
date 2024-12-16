@@ -40,6 +40,8 @@ func TestSorter_Sort(t *testing.T) {
 		want   []int
 	}{
 		{"bubble sort", fields{"bubble"}, args{[]int{1, 4, 3, 5, 10, 2}}, []int{1, 2, 3, 4, 5, 10}},
+		{"quicksort", fields{"quicksort"}, args{[]int{1, 4, 3, 5, 10, 2}}, []int{1, 2, 3, 4, 5, 10}},
+		{"unsuppported", fields{"unsupported"}, args{[]int{1, 4, 3, 5, 10, 2}}, []int{1, 4, 3, 5, 10, 2}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
