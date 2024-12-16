@@ -30,6 +30,30 @@ func main() {
 
 	fmt.Println("Time it took to sort the collection: ", time.Since(startTime))
 	printSlice(exampleSlice, 40)
+
+	// counting sort
+	maxRange := 1000000
+	cs := s.NewSorter("countingsort", maxRange)
+	customerSlice := makeCustomerSlice(maxRange)
+
+	fmt.Printf("\nMade an array of %d items for counting sort\n", len(customerSlice))
+	startTime = time.Now()
+	customerSlice = cs.CountingSort(customerSlice, maxRange)
+
+	fmt.Println("Time it took to sort the collection: ", time.Since(startTime))
+	printCustomerSlice(customerSlice, 40)
+}
+
+func makeCustomerSlice(maxRange int) []s.Customer {
+	coll := make([]s.Customer, maxRange)
+
+	for i := range coll {
+		coll[i] = s.Customer{
+			ID:           fmt.Sprintf("C%d", i),
+			NumPurchases: rand.Intn(maxRange),
+		}
+	}
+	return coll
 }
 
 func makeRandomSlice(numItems, max int) []int {
@@ -43,6 +67,18 @@ func makeRandomSlice(numItems, max int) []int {
 }
 
 func printSlice(slice []int, maxNumItems int) {
+	n := 0
+
+	if len(slice) > maxNumItems {
+		n = maxNumItems
+	} else {
+		n = len(slice)
+	}
+
+	fmt.Println(slice[0:n])
+}
+
+func printCustomerSlice(slice []s.Customer, maxNumItems int) {
 	n := 0
 
 	if len(slice) > maxNumItems {
