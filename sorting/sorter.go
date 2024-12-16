@@ -78,26 +78,26 @@ func partition(coll []int) int {
 }
 
 func (s *Sorter) CountingSort(coll []Customer, maxRange int) []Customer {
-	counts := make([]int, maxRange+1)
-	output := make([]Customer, maxRange+1)
+	numOfItems := len(coll)
+
+	counts := make([]int, maxRange)
+	output := make([]Customer, numOfItems)
 
 	// determine how many numbers repeat
-	for i := range coll {
-		counts[coll[i].NumPurchases] += 1
+	for i := 0; i < numOfItems; i++ {
+		counts[coll[i].NumPurchases]++
 	}
 
 	// ensure each slot has the number of elements less than or equal to its value
-	for i := range counts {
-		if i > 0 {
-			counts[i] += counts[i-1]
-		}
+	for i := 1; i < maxRange; i++ {
+		counts[i] += counts[i-1]
 	}
 
 	// add to the output array in sorted order
-	for i := len(coll) - 1; i >= 0; i-- {
-		output[counts[coll[i].NumPurchases]] = coll[i]
+	for i := numOfItems - 1; i >= 0; i-- {
+		output[counts[coll[i].NumPurchases]-1] = coll[i]
 		counts[coll[i].NumPurchases] -= 1
 	}
 
-	return output[1:]
+	return output
 }

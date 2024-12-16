@@ -33,8 +33,9 @@ func main() {
 
 	// counting sort
 	maxRange := 1000000
+	numOfCustomers := 1000000
 	cs := s.NewSorter("countingsort", maxRange)
-	customerSlice := makeCustomerSlice(maxRange)
+	customerSlice := makeCustomerSlice(numOfCustomers, maxRange)
 
 	fmt.Printf("\nMade an array of %d items for counting sort\n", len(customerSlice))
 	startTime = time.Now()
@@ -44,13 +45,13 @@ func main() {
 	printCustomerSlice(customerSlice, 40)
 }
 
-func makeCustomerSlice(maxRange int) []s.Customer {
-	coll := make([]s.Customer, maxRange)
+func makeCustomerSlice(numOfCustomers int, maxNumOfPurchases int) []s.Customer {
+	coll := make([]s.Customer, numOfCustomers)
 
 	for i := range coll {
 		coll[i] = s.Customer{
 			ID:           fmt.Sprintf("C%d", i),
-			NumPurchases: rand.Intn(maxRange),
+			NumPurchases: rand.Intn(maxNumOfPurchases),
 		}
 	}
 	return coll

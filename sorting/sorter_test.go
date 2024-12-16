@@ -89,7 +89,7 @@ func TestSorter_CountingSort(t *testing.T) {
 	}
 }
 
-// {1, 4, 3, 10, 5, 10, 2, 7, 6, 9}
+// {1, 4, 3, 9, 5, 9, 2, 7, 6, 8}
 func inputCustomers() []Customer {
 	return []Customer{
 		{
@@ -106,7 +106,7 @@ func inputCustomers() []Customer {
 		},
 		{
 			ID:           "C3",
-			NumPurchases: 10,
+			NumPurchases: 9,
 		},
 		{
 			ID:           "C4",
@@ -114,7 +114,7 @@ func inputCustomers() []Customer {
 		},
 		{
 			ID:           "C6",
-			NumPurchases: 10,
+			NumPurchases: 9,
 		},
 		{
 			ID:           "C7",
@@ -130,7 +130,7 @@ func inputCustomers() []Customer {
 		},
 		{
 			ID:           "C10",
-			NumPurchases: 9,
+			NumPurchases: 8,
 		},
 	}
 }
@@ -168,15 +168,15 @@ func expectedCustomerOrder() []Customer {
 		},
 		{
 			ID:           "C10",
-			NumPurchases: 9,
+			NumPurchases: 8,
 		},
 		{
 			ID:           "C3",
-			NumPurchases: 10,
+			NumPurchases: 9,
 		},
 		{
 			ID:           "C6",
-			NumPurchases: 10,
+			NumPurchases: 9,
 		},
 	}
 }
