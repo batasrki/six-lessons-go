@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"time"
 
+	ss "github.com/batasrki/six-go-lessons/searching"
 	s "github.com/batasrki/six-go-lessons/sorting"
 )
 
@@ -43,6 +44,28 @@ func main() {
 
 	fmt.Println("Time it took to sort the collection: ", time.Since(startTime))
 	printCustomerSlice(customerSlice, 40)
+
+	// linear search
+	ls := ss.NewLinearSearch()
+	exampleSlice = makeRandomSlice(10000000, 1000000)
+
+	startTime = time.Now()
+	lst := ls.SearchInts(exampleSlice, 1001)
+
+	fmt.Println("\nTime it took to search the collection: ", time.Since(startTime))
+	fmt.Printf("Found item %d at index %d after %d lookups\n\n", 1001, lst.IndexOfFoundItem, lst.ItemsSearched)
+
+	// binary search
+	bins := ss.NewBinarySearch()
+	exampleSlice = qs.Sort(exampleSlice)
+	// exampleSlice = makeRandomSlice(300000, 1000000)
+
+	startTime = time.Now()
+	bins.SearchInts(exampleSlice, 1001)
+
+	fmt.Println("Time it took to search the collection: ", time.Since(startTime))
+	fmt.Printf("Found item %d at index %d after %d lookups", 1001, bins.IndexOfFoundItem, bins.ItemsSearched)
+
 }
 
 func makeCustomerSlice(numOfCustomers int, maxNumOfPurchases int) []s.Customer {
