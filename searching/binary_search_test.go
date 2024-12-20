@@ -32,8 +32,8 @@ func TestBinarySearch_SearchInts(t *testing.T) {
 		args args
 		want *BinarySearch
 	}{
-		{"found", NewBinarySearch(), args{[]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 10}, &BinarySearch{IndexOfFoundItem: 9, ItemsSearched: 4, IndexChecked: 9}},
-		{"not found", NewBinarySearch(), args{[]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 11}, &BinarySearch{IndexOfFoundItem: -1, ItemsSearched: 5, IndexChecked: 9}},
+		{"found", NewBinarySearch(), args{[]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 10}, &BinarySearch{IndexOfFoundItem: 9, ItemsSearched: 4}},
+		{"not found", NewBinarySearch(), args{[]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 11}, &BinarySearch{IndexOfFoundItem: -1, ItemsSearched: 4}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

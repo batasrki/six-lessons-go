@@ -3,7 +3,6 @@ package searching
 type BinarySearch struct {
 	ItemsSearched    int
 	IndexOfFoundItem int
-	IndexChecked     int
 }
 
 func NewBinarySearch() *BinarySearch {
@@ -14,20 +13,21 @@ func NewBinarySearch() *BinarySearch {
 }
 
 func (bs *BinarySearch) SearchInts(coll []int, searchFor int) *BinarySearch {
-	bs.ItemsSearched++
-	currIdx := len(coll) / 2
-	bs.IndexChecked += currIdx
+	lo := 0
+	hi := len(coll) - 1
 
-	if len(coll) < 2 {
-		return bs
-	}
+	for lo <= hi {
+		bs.ItemsSearched++
+		mid := (lo + hi) / 2
 
-	if searchFor == coll[currIdx] {
-		bs.IndexOfFoundItem = bs.IndexChecked
-	} else if searchFor > coll[currIdx] {
-		bs.SearchInts(coll[currIdx:], searchFor)
-	} else {
-		bs.SearchInts(coll[0:currIdx], searchFor)
+		if coll[mid] < searchFor {
+			lo = mid + 1
+		} else if coll[mid] > searchFor {
+			hi = mid - 1
+		} else {
+			bs.IndexOfFoundItem = mid
+			return bs
+		}
 	}
 
 	return bs
